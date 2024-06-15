@@ -8,6 +8,7 @@ const baseResponses = {
         USER_NOT_FOUND:(data=null) =>baseResponses.error('User not found',data),
         INVALID_PASSWORD:(data=null) =>baseResponses.error('Invalid password',data),
         USER_LOGGED_IN:(data=null) =>baseResponses.success('User logged in successfully',data),
+        ROOM_CREATED_SUCCESSFULLY:(data=null) =>baseResponses.success('Room created successfully',data),
     }
 };
 module.exports = {baseResponses};

@@ -3,13 +3,19 @@ const feedbackSchema= new mongoose.Schema({
     user_id: {
         type:mongoose.Types.ObjectId,
         ref:'User',
-        required:true
+        required:true,
+        unique:true
     },
     comment:{
         type:String,
         required:true
+    },
+    room_id:{
+       type:mongoose.Types.ObjectId,
+       ref:'Room',
+       required:true
     }
-},{timestamp:true});
+},{timestamp:true,versionKey:false});
 const  roomSchema= new mongoose.Schema({
     roomName: {
         type: String,
@@ -91,11 +97,11 @@ const  roomSchema= new mongoose.Schema({
         type: Number,
         min: 1,
         max: 5,
-        required: true
+        required: false
       },
-      feedback: [feedbackSchema]
-}, { timestamps: true });
+}, { timestamps: true,versionKey:false });
 
+const Feedback = mongoose.model('feedbacks',feedbackSchema);
 const Room = mongoose.model('rooms', roomSchema);
 
-module.exports = Room;
+module.exports = {Room,Feedback};

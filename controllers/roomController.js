@@ -1,5 +1,5 @@
 const { baseResponses } = require("../helpers/baseResponses")
-const {Room}= require("../models/roomModel")
+const {Room,Feedback}= require("../models/roomModel")
 
 const roomCreation=(req,res)=>{
     try{
@@ -14,13 +14,12 @@ const roomCreation=(req,res)=>{
         rent,
         location,
         amenities,
-        ratings
     }=req.body
     if (!roomName || !details || availability === undefined || !roomType || !floor || !rent || !location || !amenities) {
         return res.status(400).json(baseResponses.constantMessages.ALL_FIELDS_REQUIRED());
       }
   
-    const newRoom =new Room ({
+    const newRoom =new Room({
       roomName,
       details,
       availability,
@@ -29,11 +28,11 @@ const roomCreation=(req,res)=>{
       rent,
       location,
       amenities,
-      ratings,
     });
+    
     newRoom.save();
     res.status(200).json(baseResponses.constantMessages.ROOM_CREATED_SUCCESSFULLY());
-    }catch(err){
+    }catch(error){
         return res.status(500).json(baseResponses.error(error.message));
 }
 }
@@ -51,8 +50,7 @@ const getAllRooms = async (req, res) => {
 
 const updateRoomDetails = async (req, res) => {
     try {
-      const { roomId } = req.params;
-      const updateData = req.body;
+      const {updateData,roomId} = req.body;
   
       const allowedUpdates = [
         "roomName",
@@ -63,7 +61,6 @@ const updateRoomDetails = async (req, res) => {
         "rent",
         "location",
         "amenities",
-        "ratings"
       ];
   
       const updates = {};
@@ -91,4 +88,18 @@ const updateRoomDetails = async (req, res) => {
       return res.status(500).json(baseResponses.error(error.message));
     }
   };
-  module.exports = {getAllRooms,roomCreation,updateRoomDetails}
+  const giveRatings = async(req,res)=>{
+    try{
+      const {user_id,comment,room_id}=req.body;
+      const newFeedback = new Feedback ({
+        comment,
+        user_id,
+        room_id
+      });
+      newFeedback.save();
+      return res.status(200).json(baseResponses.constantMessages.FEEDBACK());
+    }catch (error) {
+      return res.status(500).json(baseResponses.error(error.message));
+    }
+  }
+  module.exports = {getAllRooms,roomCreation,updateRoomDetails,giveRatings}

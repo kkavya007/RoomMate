@@ -24,7 +24,6 @@ const Register = async (req,res)=>{
             return res.status(400).json(baseResponses.constantMessages.PASSWORD_MISMATCH());
         }
         gender=gender.toLowerCase();
-        console.log(gender);
         const newuser = new User({
             fullName,
             email,

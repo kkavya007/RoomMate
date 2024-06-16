@@ -4,7 +4,7 @@ const {connectDB} = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const app = express();
-const port = 3000;
+const port = 3001;
 app.use(express.json());
 app.use(bodyParser.json());
 connectDB();

@@ -10,6 +10,7 @@ const BASE_RESPONSE_MESSAGES = {
         PASSWORD_MISMATCH: 'Password do not match',
         USER_NOT_FOUND: 'User not found',  
         INVALID_PASSWORD: 'Invalid password', 
+        FEEDBACK_NOT_FOUND: 'Feedbacks are not given till now'
     }
 };
 module.exports = {BASE_RESPONSE_MESSAGES};

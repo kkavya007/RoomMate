@@ -4,7 +4,7 @@ const feedbackSchema= new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:'User',
         required:true,
-        unique:true
+        unique:false
     },
     comment:{
         type:String,
@@ -99,6 +99,11 @@ const  roomSchema= new mongoose.Schema({
         max: 5,
         required: false
       },
+      gender:{
+        type: String,
+        enum: ['male', 'female','family'],
+        required: true 
+      }
 }, { timestamps: true,versionKey:false });
 
 const Feedback = mongoose.model('feedbacks',feedbackSchema);
